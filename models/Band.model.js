@@ -5,18 +5,23 @@ const bandSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  description: String,
-  availability: {
-    type: String,
-    enum: [],
-  },
-  instruments: {
+  searchedMusician: {
     type: String,
     enum: [],
   },
   musicStyle: {
     type: String,
     enum: [],
+  },
+  city: String,
+  description: String,
+  availability: {
+    type: String,
+    enum: [],
+  },
+  isArchived: {
+    type: Boolean,
+    default: false,
   },
 });
 
