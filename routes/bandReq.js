@@ -2,14 +2,13 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
-const User = require("../models/User.model");
 const Band = require("../models/Band.model");
 
-router.get("/allBandRequest", async (req, res, next) => {
+router.get("/allBand", async (req, res, next) => {
   res.status(200).json(await Band.find());
 });
 
-router.get("/allBandRequest/:id", async (req, res, next) => {
+router.get("/allBand/:id", async (req, res, next) => {
   try {
     const oneBandReq = await Band.findById(req.params.id);
 
@@ -19,24 +18,34 @@ router.get("/allBandRequest/:id", async (req, res, next) => {
   }
 });
 
-router.post("/allBandRequest", async (req, res, next) => {
-  const {
-    user,
-    searchedMusician,
-    musicStyle,
-    city,
-    description,
-    availability,
-  } = req.body;
-  const band = await Band.create({
-    user,
-    searchedMusician,
-    musicStyle,
-    city,
-    description,
-    availability,
-  });
-  res.json(band);
+router.post("/allBand/create", async (req, res, next) => {
+  try {
+    const {
+      user,
+      searchedMusician,
+      musicStyle,
+      city,
+      description,
+      availability,
+    } = req.body;
+    const band = await Band.create({
+      user,
+      searchedMusician,
+      musicStyle,
+      city,
+      description,
+      availability,
+    });
+    const reqBand = band.toObject();
+
+    res.status(201).json({ reqBand });
+  } catch (error) {
+    console.log(error);
+    if (error instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: "Sweet, sweet 500." });
+  }
 });
 
 module.exports = router;
