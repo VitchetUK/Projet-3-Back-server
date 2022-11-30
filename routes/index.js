@@ -9,4 +9,6 @@ router.get("/private", protectRoute, (req, res, next) => {
   res.send("Protection passed !");
 });
 
+router.use("/bandReq", require("./bandReq"));
+
 module.exports = router;
