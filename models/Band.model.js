@@ -7,17 +7,14 @@ const bandSchema = new Schema({
   },
   searchedMusician: {
     type: String,
-    enum: [],
   },
   musicStyle: {
     type: String,
-    enum: [],
   },
   city: String,
   description: String,
   availability: {
     type: String,
-    enum: [],
   },
   isArchived: {
     type: Boolean,
