@@ -5,11 +5,6 @@ const musicianSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  description: String,
-  availability: {
-    type: String,
-    enum: [],
-  },
   instruments: {
     type: String,
     enum: [],
@@ -18,7 +13,13 @@ const musicianSchema = new Schema({
     type: String,
     enum: [],
   },
+  city: String,
   experience: Number,
+  description: String,
+  availability: {
+    type: String,
+    enum: [],
+  },
   isArchived: {
     type: Boolean,
     default: false,
