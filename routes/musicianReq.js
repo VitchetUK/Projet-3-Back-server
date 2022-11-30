@@ -6,11 +6,11 @@ const User = require("../models/User.model");
 const Musician = require("../models/Musician.model");
 const { route } = require("./auth");
 
-router.get("/allMusicianRequest", async (req, res, next) => {
+router.get("/allMusicians", async (req, res, next) => {
   res.status(200).json(await Musician.find());
 });
 
-router.get("/allMusicianRequest/:id", async (req, res, next) => {
+router.get("/allMusicians/:id", async (req, res, next) => {
   try {
     const oneMusicianRequest = await Musician.findById(req.params.id);
 
@@ -20,7 +20,7 @@ router.get("/allMusicianRequest/:id", async (req, res, next) => {
   }
 });
 
-router.post("/allMusicianRequest", async (req, res, next) => {
+router.post("/allMusicians/create", async (req, res, next) => {
   const {
     user,
     instruments,
