@@ -4,11 +4,11 @@ const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
 const Band = require("../models/Band.model");
 
-router.get("/allBand", async (req, res, next) => {
+router.get("/allBands", async (req, res, next) => {
   res.status(200).json(await Band.find());
 });
 
-router.get("/allBand/:id", async (req, res, next) => {
+router.get("/allBands/:id", async (req, res, next) => {
   try {
     const oneBandReq = await Band.findById(req.params.id);
 
@@ -18,23 +18,15 @@ router.get("/allBand/:id", async (req, res, next) => {
   }
 });
 
-router.post("/allBand/create", async (req, res, next) => {
+router.post("/allBands/create", async (req, res, next) => {
   try {
-    const {
-      user,
-      searchedMusician,
-      musicStyle,
-      city,
-      description,
-      availability,
-    } = req.body;
+    const { user, searchedMusician, musicStyle, city, description } = req.body;
     const band = await Band.create({
       user,
       searchedMusician,
       musicStyle,
       city,
       description,
-      availability,
     });
     const reqBand = band.toObject();
 
