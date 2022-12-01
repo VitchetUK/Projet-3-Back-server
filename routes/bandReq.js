@@ -22,11 +22,13 @@ router.get("/allBands/:id", async (req, res, next) => {
   }
 });
 
-router.post("/allBands/create", async (req, res, next) => {
+router.post("/allBands/create", isAuthenticated, async (req, res, next) => {
   try {
+    const id = req.payload.id;
+
     const { user, searchedMusician, musicStyle, city, description } = req.body;
     const band = await Band.create({
-      user,
+      user: id,
       searchedMusician,
       musicStyle,
       city,
