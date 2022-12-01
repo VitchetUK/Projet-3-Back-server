@@ -17,7 +17,8 @@ const userSchema = new Schema(
       name: String,
       url: String,
     },
-    socialMedia: String,
+    twitter: String,
+    instagram: String,
     displayEmail: String,
   }
   // {
