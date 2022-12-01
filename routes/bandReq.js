@@ -5,7 +5,11 @@ const isAuthenticated = require("../middlewares/jwt.middleware");
 const Band = require("../models/Band.model");
 
 router.get("/allBands", async (req, res, next) => {
-  res.status(200).json(await Band.find());
+  try {
+    res.status(200).json(await Band.find());
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/allBands/:id", async (req, res, next) => {
@@ -32,7 +36,7 @@ router.post("/allBands/create", async (req, res, next) => {
 
     res.status(201).json({ reqBand });
   } catch (error) {
-    console.log(error);
+    next(error);
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({ message: error.message });
     }
