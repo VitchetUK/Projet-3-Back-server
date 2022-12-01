@@ -4,11 +4,15 @@ const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
 const User = require("../models/User.model");
 
-router.get("/profile/:id", async (req, res) => {
+router.get("/", isAuthenticated, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    console.log(req.payload);
+
+    const id = req.payload.id;
+    const user = await User.findById(id, { name: 1, email: 1 });
+    res.status(200).json(user);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json(error);
   }
 });
 
