@@ -20,26 +20,36 @@ router.get("/allMusicians/:id", async (req, res, next) => {
   }
 });
 
-router.post("/allMusicians/create", async (req, res, next) => {
-  const {
-    user,
-    instruments,
-    musicStyle,
-    city,
-    experience,
-    description,
-    availability,
-  } = req.body;
-  const musician = await Musician.create({
-    user,
-    instruments,
-    musicStyle,
-    city,
-    experience,
-    description,
-    availability,
-  });
-  res.status(201).json(musician);
+router.post("/allMusicians/create", isAuthenticated, async (req, res, next) => {
+  try {
+    const id = req.payload.id;
+
+    const {
+      user,
+      instruments,
+      musicStyle,
+      city,
+      experience,
+      description,
+      availability,
+    } = req.body;
+    const musician = await Musician.create({
+      user: id,
+      instruments,
+      musicStyle,
+      city,
+      experience,
+      description,
+      availability,
+    });
+    res.status(201).json(musician);
+  } catch (error) {
+    next(error);
+    if (error instanceof mongoose.Error.ValidationError) {
+      return res.status(400).json({ message: error.message });
+    }
+    res.status(500).json({ message: "Sweet, sweet 500." });
+  }
 });
 
 module.exports = router;
