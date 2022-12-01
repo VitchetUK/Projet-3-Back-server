@@ -3,6 +3,7 @@ const protectRoute = require("../middlewares/protectRoute");
 
 router.use("/bandReq", require("./bandReq"));
 router.use("/musicianReq", require("./musicianReq"));
+router.use("/profile", require("./profile"));
 
 router.get("/", (req, res, next) => {
   res.send("Server is running... 🏃‍♂️");

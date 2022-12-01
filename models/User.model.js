@@ -10,7 +10,15 @@ const userSchema = new Schema(
       type: String,
       unique: true,
     },
+    phone: Number,
     password: String,
+    age: Number,
+    image: {
+      name: String,
+      url: String,
+    },
+    socialMedia: String,
+    displayEmail: String,
   }
   // {
   // 	// this second object adds extra properties: `createdAt` and `updatedAt`
