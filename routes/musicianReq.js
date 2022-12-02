@@ -12,7 +12,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const oneMusicianRequest = await Musician.findById(req.params.id);
+    const oneMusicianRequest = await Musician.findById(req.params.id).populate(
+      "user"
+    );
 
     res.status(200).json(oneMusicianRequest);
   } catch (error) {

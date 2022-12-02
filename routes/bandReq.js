@@ -14,7 +14,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const oneBandReq = await Band.findById(req.params.id);
+    const oneBandReq = await Band.findById(req.params.id).populate("user");
 
     res.status(200).json(oneBandReq);
   } catch (error) {
