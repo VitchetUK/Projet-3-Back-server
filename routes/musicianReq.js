@@ -7,7 +7,7 @@ const Musician = require("../models/Musician.model");
 const { route } = require("./auth");
 
 router.get("/", async (req, res, next) => {
-  res.status(200).json(await Musician.find());
+  res.status(200).json(await Musician.find().populate("user"));
 });
 
 router.get("/:id", async (req, res, next) => {
