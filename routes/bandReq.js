@@ -6,7 +6,7 @@ const Band = require("../models/Band.model");
 
 router.get("/", async (req, res, next) => {
   try {
-    res.status(200).json(await Band.find());
+    res.status(200).json(await Band.find().populate("user"));
   } catch (error) {
     next(error);
   }
