@@ -24,7 +24,6 @@ router.patch(
   async (req, res) => {
     try {
       const userId = req.payload.id;
-      let user = req.payload;
 
       const { name, username, phone, age, twitter, instagram, displayEmail } =
         req.body;
