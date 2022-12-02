@@ -13,10 +13,7 @@ const userSchema = new Schema(
     phone: Number,
     password: String,
     age: Number,
-    image: {
-      name: String,
-      url: String,
-    },
+    picture: String,
     twitter: String,
     instagram: String,
     displayEmail: String,
