@@ -7,7 +7,7 @@ const uploader = require("../config/cloudinary");
 const Band = require("../models/Band.model");
 const Musician = require("../models/Musician.model");
 
-router.get("/myRequests", isAuthenticated, async (req, res, next) => {
+router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const id = req.payload.id;
 
