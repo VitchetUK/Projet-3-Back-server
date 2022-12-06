@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
 const Band = require("../models/Band.model");
 
+// Get all requests made by bands looking for musician(s)
+
 router.get("/", async (req, res, next) => {
   try {
     const { searchedMusician, city, musicStyle } = req.query;
@@ -23,6 +25,8 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// Get one specific request when cliked on it
+
 router.get("/:id", async (req, res, next) => {
   try {
     const oneBandReq = await Band.findById(req.params.id).populate("user");
@@ -32,6 +36,8 @@ router.get("/:id", async (req, res, next) => {
     next(error);
   }
 });
+
+// Post/Create the request as a band, to look for musician(s)
 
 router.post("/", isAuthenticated, async (req, res, next) => {
   try {

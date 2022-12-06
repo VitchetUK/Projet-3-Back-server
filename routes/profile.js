@@ -17,6 +17,8 @@ router.get("/", isAuthenticated, async (req, res) => {
   }
 });
 
+// Post/Create an account
+
 router.patch(
   "/",
   uploader.single("picture"),
