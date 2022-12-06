@@ -59,7 +59,7 @@ router.post("/signup", async (req, res, next) => {
     if (error instanceof mongoose.Error.ValidationError) {
       return res.status(400).json({ message: error.message });
     }
-    res.status(500).json({ message: "Sweet, sweet 500." });
+    next(error);
   }
 });
 
@@ -73,7 +73,7 @@ router.post("/signin", async (req, res, next) => {
   try {
     const foundUser = await User.findOne({ email });
     if (!foundUser) {
-      res.status.apply(401).json({ message: "You're not yourself." });
+      res.status(401).json({ message: "You're not yourself." });
       return;
     }
     const goodPass = bcrypt.compareSync(password, foundUser.password);
@@ -103,18 +103,17 @@ router.post("/signin", async (req, res, next) => {
       res.status(401).json("Can you check your typos ?");
     }
   } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .json({ message: "Oh noes ! Something went terribly wrong !" });
+    next(error);
   }
 });
 
 router.get("/me", isAuthenticated, async (req, res, next) => {
-  // console.log("req payload", req.payload);
-
-  const user = await User.findById(req.payload.id).select("-password");
-  res.status(200).json(user);
+  try {
+    const user = await User.findById(req.payload.id).select("-password");
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

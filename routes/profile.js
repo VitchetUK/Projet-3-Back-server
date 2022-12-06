@@ -54,8 +54,6 @@ router.patch(
           { new: true }
         );
         res.status(200).json(userUpdate);
-        //user = userUpdate;
-        //await userUpdate.save();
       } catch (error) {
         res.status(400).json({ error: error.message });
       }

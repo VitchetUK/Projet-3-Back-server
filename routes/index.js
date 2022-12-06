@@ -7,13 +7,19 @@ router.use("/profile", require("./profile"));
 router.use("/myRequests", require("./userReq"));
 
 router.get("/", (req, res, next) => {
-  res.send("Server is running... 🏃‍♂️");
+  try {
+    res.send("Server is running... 🏃‍♂️");
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/private", protectRoute, (req, res, next) => {
-  res.send("Protection passed !");
+  try {
+    res.send("Protection passed !");
+  } catch (error) {
+    next(error);
+  }
 });
-
-// router.use("/bandReq", require("./bandReq"));
 
 module.exports = router;
