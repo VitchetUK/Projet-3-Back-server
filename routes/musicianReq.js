@@ -2,12 +2,25 @@ const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
-const User = require("../models/User.model");
 const Musician = require("../models/Musician.model");
-const { route } = require("./auth");
 
 router.get("/", async (req, res, next) => {
-  res.status(200).json(await Musician.find().populate("user"));
+  try {
+    const { instruments, city, musicStyle } = req.query;
+    const searchQ = {};
+    if (instruments) {
+      searchQ.instruments = new RegExp(instruments);
+    }
+    if (city) {
+      searchQ.city = new RegExp(city);
+    }
+    if (musicStyle) {
+      searchQ.musicStyle = new RegExp(musicStyle);
+    }
+    res.status(200).json(await Musician.find(searchQ).populate("user"));
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/:id", async (req, res, next) => {

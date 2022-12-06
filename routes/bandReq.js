@@ -6,7 +6,18 @@ const Band = require("../models/Band.model");
 
 router.get("/", async (req, res, next) => {
   try {
-    res.status(200).json(await Band.find().populate("user"));
+    const { searchedMusician, city, musicStyle } = req.query;
+    const searchQ = {};
+    if (searchedMusician) {
+      searchQ.searchedMusician = new RegExp(searchedMusician);
+    }
+    if (city) {
+      searchQ.city = new RegExp(city);
+    }
+    if (musicStyle) {
+      searchQ.musicStyle = new RegExp(musicStyle);
+    }
+    res.status(200).json(await Band.find(searchQ).populate("user"));
   } catch (error) {
     next(error);
   }
