@@ -19,7 +19,15 @@ router.get("/", async (req, res, next) => {
     if (musicStyle) {
       searchQ.musicStyle = new RegExp(musicStyle);
     }
-    res.status(200).json(await Band.find(searchQ).populate("user"));
+    res
+      .status(200)
+      .json(
+        await Band.find(searchQ, {
+          __v: 0,
+          isArchived: 0,
+          description: 0,
+        }).populate("user")
+      );
   } catch (error) {
     next(error);
   }
