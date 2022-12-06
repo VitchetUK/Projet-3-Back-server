@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const isAuthenticated = require("../middlewares/jwt.middleware");
 const User = require("../models/User.model");
 const uploader = require("../config/cloudinary");
+const Band = require("../models/Band.model");
+const Musician = require("../models/Musician.model");
 
 router.get("/", isAuthenticated, async (req, res) => {
   try {
@@ -62,5 +64,17 @@ router.patch(
     }
   }
 );
+
+router.delete("/", isAuthenticated, async (req, res, next) => {
+  try {
+    const id = req.payload.id;
+    const bands = await Band.deleteMany({ user: id });
+    const musicians = await Musician.deleteMany({ user: id });
+    const user = await User.findByIdAndDelete(id);
+    res.sendStatus(204);
+  } catch (error) {
+    next(error);
+  }
+});
 
 module.exports = router;
