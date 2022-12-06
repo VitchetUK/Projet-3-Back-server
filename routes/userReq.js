@@ -5,6 +5,8 @@ const isAuthenticated = require("../middlewares/jwt.middleware");
 const BandModel = require("../models/Band.model");
 const MusicianModel = require("../models/Musician.model");
 
+// Get all requests made by the user
+
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const id = req.payload.id;
@@ -16,6 +18,8 @@ router.get("/", isAuthenticated, async (req, res, next) => {
     next(error);
   }
 });
+
+// Delete the request on the allRequest page
 
 router.delete("/:category/:id", isAuthenticated, async (req, res, next) => {
   try {
