@@ -17,11 +17,10 @@ const userSchema = new Schema(
     twitter: String,
     instagram: String,
     displayEmail: String,
+  },
+  {
+    timestamps: true,
   }
-  // {
-  // 	// this second object adds extra properties: `createdAt` and `updatedAt`
-  // 	timestamps: true,
-  // }
 );
 
 module.exports = model("User", userSchema);
