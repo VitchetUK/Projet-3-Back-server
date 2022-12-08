@@ -10,8 +10,22 @@ const MusicianModel = require("../models/Musician.model");
 router.get("/", isAuthenticated, async (req, res, next) => {
   try {
     const id = req.payload.id;
-    const bands = await BandModel.find({ user: id }).populate("user");
-    const musicians = await MusicianModel.find({ user: id }).populate("user");
+    const bands = await BandModel.find(
+      { user: id },
+      {
+        __v: 0,
+        isArchived: 0,
+        description: 0,
+      }
+    ).populate("user");
+    const musicians = await MusicianModel.find(
+      { user: id },
+      {
+        __v: 0,
+        isArchived: 0,
+        description: 0,
+      }
+    ).populate("user");
 
     res.status(200).json({ bands, musicians });
   } catch (error) {
