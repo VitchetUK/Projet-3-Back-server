@@ -7,18 +7,15 @@ const musicianSchema = new Schema({
   },
   instruments: {
     type: String,
-    enum: [],
   },
   musicStyle: {
     type: String,
-    enum: [],
   },
   city: String,
   experience: Number,
   description: String,
   availability: {
     type: String,
-    enum: [],
   },
   isArchived: {
     type: Boolean,
